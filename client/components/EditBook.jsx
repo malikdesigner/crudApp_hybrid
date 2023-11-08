@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, ToastAndroid } from 'react-native';
 import CustomButton from './CustomButton';
 import axios from 'axios';
+import ipadress from './ipaddress';
 
 const EditBook = ({ route, navigation }) => {
     const { bookId } = route.params;
@@ -20,7 +21,7 @@ const EditBook = ({ route, navigation }) => {
 
     const fetchBookById = async () => {
         try {
-            const response = await axios.get(`http://192.168.100.121:3301/books/${bookId}`);
+            const response = await axios.get(`http://${ipadress}:3301/books/${bookId}`);
             if (response.status === 200) {
                 const fetchedBook = response.data[0];
                 setBook({
@@ -40,7 +41,7 @@ const EditBook = ({ route, navigation }) => {
 
     const handleUpdateBook = async () => {
         try {
-            const response = await axios.put(`http://192.168.100.121:3301/books/${bookId}`, {
+            const response = await axios.put(`http://${ipadress}:3301/books/${bookId}`, {
                 bookName: book.bookName,
                 bookAuthor: book.bookAuthor,
                 email: book.email,

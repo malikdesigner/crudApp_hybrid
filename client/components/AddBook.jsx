@@ -3,6 +3,7 @@ import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ToastAndroi
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomButton from './CustomButton';
 import axios from 'axios';
+import ipadress from './ipaddress';
 
 const AddBook = ({ navigation }) => {
 
@@ -40,7 +41,7 @@ const AddBook = ({ navigation }) => {
                     addedBy,
                 };
 
-                const response = await axios.post('http://192.168.100.121:3301/addBooks', formData);
+                const response = await axios.post(`http://${ipadress}:3301/addBooks`, formData);
 
                 if (response.status === 200) {
                     ToastAndroid.show('Record saved successfully', ToastAndroid.SHORT);

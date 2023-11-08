@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, TextInput,ToastAndroid } from '
 import Icon from 'react-native-vector-icons/FontAwesome'; // Update the import to use 'Icon' from 'react-native-vector-icons/FontAwesome'
 import CustomButton from './CustomButton';
 import axios from 'axios';
+import ipadress from './ipaddress';
 const ListBooks = ({ route, navigation }) => {
     const [books, setBooks] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +14,7 @@ const ListBooks = ({ route, navigation }) => {
     }, [[route.params?.refresh]]);
     const fetchBooks = async () => {
         try {
-            const response = await axios.get('http://192.168.100.121:3301/books');
+            const response = await axios.get(`http://${ipadress}:3301/books`);
 
             if (response.status === 200) {
                 setBooks(response.data);
@@ -31,7 +32,7 @@ const ListBooks = ({ route, navigation }) => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://192.168.100.121:3301/books/${id}`, {
+            const response = await fetch(`http://${ipadress}:3301/books/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ const ListBooks = ({ route, navigation }) => {
     };
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`http://192.168.100.121:3301/books?search=${searchQuery}`);
+            const response = await axios.get(`http://${ipadress}:3301/books?search=${searchQuery}`);
             console.log('Search response:', searchQuery);
 
             if (response.status === 200) {
@@ -79,7 +80,7 @@ const ListBooks = ({ route, navigation }) => {
     };
 
     return (
-        <View style={{ padding: 16, marginTop: 100 }}>
+        <View style={{flex:1, padding: 16, marginTop: 100 }}>
             <View style={{ backgroundColor: "#d8e8e9", paddingTop: 30, paddingBottom: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginVertical: 15 }}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>Book List</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 10 }}>
